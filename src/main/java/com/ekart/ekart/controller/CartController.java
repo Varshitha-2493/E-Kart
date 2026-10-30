@@ -137,6 +137,10 @@ public class CartController {
             throw new RuntimeException("Quantity must be greater than 0");
         }
 
+        if (quantity > cartItem.getProduct().getStock()) {
+            throw new RuntimeException("Not enough stock available");
+        }
+
         cartItem.setQuantity(quantity);
 
         cartItem = cartItemRepository.save(cartItem);

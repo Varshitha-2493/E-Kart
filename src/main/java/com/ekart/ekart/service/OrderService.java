@@ -1,10 +1,12 @@
 package com.ekart.ekart.service;
 
+import com.ekart.ekart.exception.ApiException;
 import com.ekart.ekart.model.*;
 import com.ekart.ekart.repository.CartItemRepository;
 import com.ekart.ekart.repository.OrderRepository;
 import com.ekart.ekart.repository.ProductRepository;
 import com.ekart.ekart.repository.UserRepository;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,7 +26,6 @@ public class OrderService {
                         CartItemRepository cartItemRepository,
                         UserRepository userRepository,
                         ProductRepository productRepository) {
-
         this.orderRepository = orderRepository;
         this.cartItemRepository = cartItemRepository;
         this.userRepository = userRepository;
@@ -33,34 +34,29 @@ public class OrderService {
 
     @Transactional
     public Order checkout(Long userId, String shippingAddress) {
-
         if (shippingAddress == null || shippingAddress.isBlank()) {
-            throw new RuntimeException("Shipping address is required");
+            throw new ApiException(HttpStatus.BAD_REQUEST, "Shipping address is required");
         }
 
         User user = userRepository.findById(userId)
-                .orElseThrow(() -> new RuntimeException("User not found"));
+                .orElseThrow(() -> new ApiException(HttpStatus.NOT_FOUND, "User not found"));
 
         List<CartItem> cartItems = cartItemRepository.findByUserId(userId);
-
         if (cartItems.isEmpty()) {
-            throw new RuntimeException("Cart is empty");
+            throw new ApiException(HttpStatus.BAD_REQUEST, "Cart is empty");
         }
 
-        // Check stock BEFORE changing anything
         for (CartItem item : cartItems) {
-
             Product product = item.getProduct();
-
             if (product.getStock() < item.getQuantity()) {
-                throw new RuntimeException(
+                throw new ApiException(
+                        HttpStatus.BAD_REQUEST,
                         "Not enough stock for product: " + product.getName()
                 );
             }
         }
 
         Order order = new Order();
-
         order.setUser(user);
         order.setStatus(OrderStatus.PLACED);
         order.setShippingAddress(shippingAddress);
@@ -69,40 +65,34 @@ public class OrderService {
         BigDecimal totalAmount = BigDecimal.ZERO;
 
         for (CartItem cartItem : cartItems) {
-
             Product product = cartItem.getProduct();
-
             BigDecimal itemTotal = product.getPrice()
                     .multiply(BigDecimal.valueOf(cartItem.getQuantity()));
-
             totalAmount = totalAmount.add(itemTotal);
 
-            // Reduce stock
-            product.setStock(
-                    product.getStock() - cartItem.getQuantity()
-            );
-
+            product.setStock(product.getStock() - cartItem.getQuantity());
             productRepository.save(product);
 
-            // Create order item
             OrderItem orderItem = new OrderItem();
-
             orderItem.setOrder(order);
             orderItem.setProduct(product);
             orderItem.setQuantity(cartItem.getQuantity());
             orderItem.setPriceAtPurchase(product.getPrice());
             orderItem.setProductName(product.getName());
-
             order.getItems().add(orderItem);
         }
 
         order.setTotalAmount(totalAmount);
-
         Order savedOrder = orderRepository.save(order);
-
-        // Empty cart after successful checkout
         cartItemRepository.deleteAll(cartItems);
-
         return savedOrder;
+    }
+
+    @Transactional
+    public Order updateStatus(Long orderId, OrderStatus status) {
+        Order order = orderRepository.findById(orderId)
+                .orElseThrow(() -> new ApiException(HttpStatus.NOT_FOUND, "Order not found"));
+        order.setStatus(status);
+        return orderRepository.save(order);
     }
 }

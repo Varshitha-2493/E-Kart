@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Product · E-Kart</title>
+  <link rel="stylesheet" href="/css/styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="shell topbar-inner">
+      <a class="brand" href="/index.html">E-Kart</a>
+      <nav class="nav" data-nav></nav>
+    </div>
+  </header>
+
+  <main class="shell page">
+    <div class="product-hero">
+      <div id="productImage" class="product-media">Product</div>
+      <div class="stack">
+        <h1 id="productName" style="margin:0;font-size:2rem;letter-spacing:-0.03em">Product</h1>
+        <p class="muted" id="productMeta" style="margin:0"></p>
+        <div class="price" id="productPrice" style="font-size:1.5rem"></div>
+        <p id="productDesc" class="muted"></p>
+        <p><strong>Specs:</strong> <span id="productSpecs" class="muted"></span></p>
+        <div class="actions">
+          <input id="qtyInput" type="number" min="1" value="1" style="width:72px;border:1px solid var(--line);border-radius:10px;padding:0.65rem" />
+          <button class="btn btn-primary" id="addCartBtn">Add to cart</button>
+          <a class="btn btn-outline" id="compareLink" href="/pages/assistant.html">Compare</a>
+          <button class="btn btn-outline" id="summaryBtn">AI review summary</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="summaryBox" class="hidden">
+      <div class="ai-box">
+        <h4 id="summaryHeading">AI review summary</h4>
+        <p id="summaryOverall"></p>
+      </div>
+      <div class="review-cols">
+        <div class="card">
+          <h3 class="like-title">What buyers like</h3>
+          <ul class="bullet-list" id="summaryLikes"></ul>
+        </div>
+        <div class="card">
+          <h3 class="complaint-title">Common complaints</h3>
+          <ul class="bullet-list" id="summaryComplaints"></ul>
+        </div>
+      </div>
+    </div>
+
+    <section style="margin-top:1.4rem">
+      <div class="section-head">
+        <div>
+          <h2>Reviews</h2>
+          <p>Customer feedback for this product.</p>
+        </div>
+      </div>
+      <div class="split">
+        <div id="reviewList"></div>
+        <form class="card stack" id="reviewForm">
+          <h3 style="margin:0">Write a review</h3>
+          <div class="field">
+            <label for="ratingInput">Rating</label>
+            <select id="ratingInput">
+              <option value="5">5</option>
+              <option value="4">4</option>
+              <option value="3">3</option>
+              <option value="2">2</option>
+              <option value="1">1</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="commentInput">Comment</label>
+            <textarea id="commentInput" required></textarea>
+          </div>
+          <button class="btn btn-primary" type="submit">Submit review</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/auth.js"></script>
+  <script src="/js/product.js"></script>
+</body>
+</html>

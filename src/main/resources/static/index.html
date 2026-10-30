@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>E-Kart · AI Shopping</title>
+  <link rel="stylesheet" href="/css/styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="shell topbar-inner">
+      <a class="brand" href="/index.html">E-<span>Kart</span></a>
+      <nav class="nav" data-nav></nav>
+    </div>
+  </header>
+
+  <main class="shell">
+    <section class="hero">
+      <div>
+        <h1>E-Kart</h1>
+        <p>
+          Browse verified products, build carts from real goals and budgets, and let AI help you
+          compare options and cut through long review lists.
+        </p>
+        <div class="actions">
+          <a class="btn btn-primary" href="#catalog">Browse products</a>
+          <a class="btn btn-accent" href="/pages/assistant.html">Open AI Assistant</a>
+        </div>
+      </div>
+      <div class="hero-visual" aria-hidden="true"></div>
+    </section>
+
+    <section class="section" id="catalog">
+      <div class="section-head">
+        <div>
+          <h2>Catalog</h2>
+          <p>Search, filter, and add items from live inventory.</p>
+        </div>
+      </div>
+
+      <div class="panel filters">
+        <div class="field">
+          <label for="searchInput">Search</label>
+          <input id="searchInput" placeholder="Phone, balloons, lamp..." />
+        </div>
+        <div class="field">
+          <label for="categoryFilter">Category</label>
+          <select id="categoryFilter"></select>
+        </div>
+        <div class="field">
+          <label for="minPrice">Min ₹</label>
+          <input id="minPrice" type="number" min="0" />
+        </div>
+        <div class="field">
+          <label for="maxPrice">Max ₹</label>
+          <input id="maxPrice" type="number" min="0" />
+        </div>
+        <div class="field">
+          <label for="minRating">Min rating</label>
+          <input id="minRating" type="number" min="1" max="5" step="0.1" />
+        </div>
+        <div class="field">
+          <label for="inStockOnly">Stock</label>
+          <label style="display:flex;align-items:center;gap:0.4rem;text-transform:none;letter-spacing:0;font-size:0.92rem;color:var(--ink)">
+            <input id="inStockOnly" type="checkbox" /> In stock only
+          </label>
+        </div>
+        <div class="field" style="justify-content:end">
+          <label>&nbsp;</label>
+          <button class="btn btn-primary" id="applyFilters">Apply</button>
+        </div>
+      </div>
+
+      <div class="grid" id="productGrid"></div>
+    </section>
+  </main>
+
+  <footer class="shell footer">E-Kart · full-stack shopping with practical AI decision support</footer>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/auth.js"></script>
+  <script src="/js/shop.js"></script>
+</body>
+</html>

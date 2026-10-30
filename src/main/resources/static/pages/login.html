@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login · E-Kart</title>
+  <link rel="stylesheet" href="/css/styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="shell topbar-inner">
+      <a class="brand" href="/index.html">E-<span>Kart</span></a>
+      <nav class="nav" data-nav></nav>
+    </div>
+  </header>
+
+  <main class="shell auth-wrap">
+    <form class="panel auth-card stack" id="loginForm">
+      <div>
+        <h1>Welcome back</h1>
+        <p class="muted">Customer: customer@ekart.com / customer123<br/>Admin: admin@ekart.com / admin123</p>
+      </div>
+      <div class="field">
+        <label for="email">Email</label>
+        <input id="email" type="email" required />
+      </div>
+      <div class="field">
+        <label for="password">Password</label>
+        <input id="password" type="password" required />
+      </div>
+      <button class="btn btn-primary" type="submit">Login</button>
+      <p class="muted">New here? <a href="/pages/register.html">Create an account</a></p>
+    </form>
+  </main>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/auth.js"></script>
+  <script src="/js/auth-pages.js"></script>
+</body>
+</html>

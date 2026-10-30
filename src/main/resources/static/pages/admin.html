@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>E-Kart Admin</title>
+  <link rel="stylesheet" href="/css/styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="shell topbar-inner">
+      <a class="brand" href="/pages/admin.html">E-Kart Admin</a>
+      <nav class="nav" data-nav></nav>
+    </div>
+  </header>
+
+  <main class="shell page">
+    <h1 class="page-title">Admin Insights <span class="pill pill-ai">AI summary</span></h1>
+
+    <div class="actions" style="margin-bottom:1rem">
+      <button class="btn btn-primary" id="insightsBtn">Refresh AI insights</button>
+      <a class="btn btn-outline" href="#products">Manage products</a>
+      <a class="btn btn-outline" href="#orders">Manage orders</a>
+    </div>
+
+    <div id="insightsBox" class="hidden">
+      <div class="kpi-grid">
+        <div class="card">
+          <div class="muted">Total sales</div>
+          <div class="kpi-value" id="kpiRevenue">₹0</div>
+          <div class="muted">Across all orders</div>
+        </div>
+        <div class="card">
+          <div class="muted">Orders</div>
+          <div class="kpi-value" id="kpiOrders">0</div>
+          <div class="muted">All time</div>
+        </div>
+        <div class="card">
+          <div class="muted">Low-stock products</div>
+          <div class="kpi-value" id="kpiLow">0</div>
+          <div class="muted">Need attention</div>
+        </div>
+        <div class="card">
+          <div class="muted">Pending orders</div>
+          <div class="kpi-value" id="kpiPending">0</div>
+          <div class="muted">Placed / packed / shipped</div>
+        </div>
+      </div>
+
+      <div class="admin-mid">
+        <div class="card">
+          <h3 style="margin-top:0">Sales by category</h3>
+          <div id="salesBars"></div>
+        </div>
+        <div class="card">
+          <h3 style="margin-top:0">Best sellers</h3>
+          <ol class="rank-list" id="bestSellers" style="padding-left:1.1rem;list-style:decimal"></ol>
+        </div>
+        <div class="card">
+          <h3 style="margin-top:0">Low stock</h3>
+          <ul class="stock-list" id="lowStockList"></ul>
+        </div>
+      </div>
+
+      <div class="ai-box" style="margin-bottom:1.4rem">
+        <h4>AI summary for the admin</h4>
+        <p id="insightSummary"></p>
+      </div>
+    </div>
+
+    <div id="products" class="split" style="margin-bottom:1.5rem">
+      <form class="card stack" id="productForm">
+        <h3 style="margin:0">Product editor</h3>
+        <input type="hidden" id="productId" />
+        <div class="field"><label>Name</label><input id="productName" required /></div>
+        <div class="field"><label>Description</label><textarea id="productDesc"></textarea></div>
+        <div class="field"><label>Specs</label><input id="productSpecs" placeholder="Battery, camera, pack size..." /></div>
+        <div class="field"><label>Price</label><input id="productPrice" type="number" min="1" step="0.01" required /></div>
+        <div class="field"><label>Stock</label><input id="productStock" type="number" min="0" required /></div>
+        <div class="field"><label>Image URL</label><input id="productImage" /></div>
+        <div class="field"><label>Category</label><select id="productCategory" required></select></div>
+        <div class="actions">
+          <button class="btn btn-primary" type="submit">Save product</button>
+          <button class="btn btn-outline" type="button" id="resetProduct">Clear</button>
+        </div>
+      </form>
+
+      <div class="card" style="overflow:auto">
+        <h3 style="margin-top:0">Inventory</h3>
+        <table class="table">
+          <thead><tr><th>ID</th><th>Name</th><th>Price</th><th>Stock</th><th></th></tr></thead>
+          <tbody id="adminProducts"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div id="orders" class="card" style="overflow:auto">
+      <h3 style="margin-top:0">Orders</h3>
+      <table class="table">
+        <thead><tr><th>Order</th><th>Customer</th><th>Total</th><th>Status</th><th></th></tr></thead>
+        <tbody id="adminOrders"></tbody>
+      </table>
+    </div>
+  </main>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/auth.js"></script>
+  <script src="/js/admin.js"></script>
+</body>
+</html>

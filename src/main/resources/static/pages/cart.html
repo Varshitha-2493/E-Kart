@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cart · E-Kart</title>
+  <link rel="stylesheet" href="/css/styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="shell topbar-inner">
+      <a class="brand" href="/index.html">E-<span>Kart</span></a>
+      <nav class="nav" data-nav></nav>
+    </div>
+  </header>
+
+  <main class="shell section">
+    <div class="section-head">
+      <div>
+        <h2>Your cart</h2>
+        <p>Review items, then place a simulated checkout order.</p>
+      </div>
+      <div class="price" id="cartTotal">₹0</div>
+    </div>
+
+    <div class="panel" style="overflow:auto">
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Product</th>
+            <th>Price</th>
+            <th>Qty</th>
+            <th>Total</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody id="cartBody"></tbody>
+      </table>
+    </div>
+
+    <form class="panel stack" id="checkoutForm" style="margin-top:1rem;max-width:560px">
+      <h3 style="margin:0;font-family:Fraunces,serif">Checkout</h3>
+      <div class="field">
+        <label for="addressInput">Shipping address</label>
+        <textarea id="addressInput" required placeholder="Flat, street, city, PIN"></textarea>
+      </div>
+      <button class="btn btn-primary" type="submit">Place order</button>
+    </form>
+  </main>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/auth.js"></script>
+  <script src="/js/cart.js"></script>
+</body>
+</html>

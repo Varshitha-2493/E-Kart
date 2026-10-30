@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI Assistant · E-Kart</title>
+  <link rel="stylesheet" href="/css/styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="shell topbar-inner">
+      <a class="brand" href="/index.html">E-Kart</a>
+      <nav class="nav" data-nav></nav>
+    </div>
+  </header>
+
+  <main class="shell page">
+    <div class="tabs">
+      <button class="tab active" data-tab="goal">Goal-to-Cart</button>
+      <button class="tab" data-tab="compare">Compare & Decide</button>
+      <button class="tab" data-tab="summary">Review Summary</button>
+    </div>
+
+    <!-- GOAL TO CART -->
+    <section id="panel-goal" data-tab-panel>
+      <div class="goal-layout">
+        <div class="stack">
+          <form class="card" id="goalForm">
+            <h2 style="margin:0 0 0.35rem;font-size:1.25rem">Tell us your goal</h2>
+            <p class="muted" style="margin:0 0 0.9rem">Type what you want to do and your budget. We build the cart for you.</p>
+            <div class="field">
+              <label for="goalInput">Goal + budget</label>
+              <textarea id="goalInput" required>Birthday party for 10 kids, budget ₹3000</textarea>
+            </div>
+            <div class="field">
+              <label for="budgetInput">Budget (₹)</label>
+              <input id="budgetInput" type="number" min="1" required value="3000" />
+            </div>
+            <button class="btn btn-primary btn-block" type="submit">Build my cart</button>
+          </form>
+
+          <div class="card howto">
+            <h3 style="margin:0 0 0.35rem;font-size:1.05rem">How it works</h3>
+            <ol>
+              <li>AI understands your goal</li>
+              <li>It picks only from our catalog</li>
+              <li>Our code checks budget and stock</li>
+              <li>You edit and buy</li>
+            </ol>
+          </div>
+        </div>
+
+        <div class="card" id="goalResultCard">
+          <div class="section-head" style="margin-bottom:0.4rem">
+            <div>
+              <h2 style="font-size:1.2rem" id="goalResultTitle">Suggested cart</h2>
+              <p id="goalResultSub">Run Goal-to-Cart to see verified items here.</p>
+            </div>
+            <span class="pill pill-count" id="goalCount">0 items</span>
+          </div>
+          <div id="goalItems"></div>
+          <div class="cart-footer hidden" id="goalFooter">
+            <span class="pill pill-ok" id="goalVerified">✓ Verified</span>
+            <div class="actions" style="align-items:center">
+              <strong id="goalTotalText"></strong>
+              <button class="btn btn-primary" id="addGoalCartBtn" type="button">Add to cart</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- COMPARE -->
+    <section class="hidden" id="panel-compare" data-tab-panel>
+      <h1 class="page-title">Compare and Decide <span class="pill pill-ai">AI</span></h1>
+
+      <form class="card" id="compareForm" style="margin-bottom:1rem">
+        <div class="split">
+          <div class="field" style="margin:0">
+            <label for="compareA">Product A</label>
+            <select id="compareA" required></select>
+          </div>
+          <div class="field" style="margin:0">
+            <label for="compareB">Product B</label>
+            <select id="compareB" required></select>
+          </div>
+        </div>
+        <div class="split" style="margin-top:0.9rem">
+          <div class="field" style="margin:0">
+            <label for="compareC">Product C (optional)</label>
+            <select id="compareC"></select>
+          </div>
+          <div class="field" style="margin:0">
+            <label for="preferenceInput">Preference</label>
+            <input id="preferenceInput" required placeholder="best deal / good battery / good camera" value="best value" />
+          </div>
+        </div>
+        <button class="btn btn-primary" style="margin-top:0.9rem" type="submit">Compare with AI</button>
+      </form>
+
+      <div class="compare-grid" id="compareCards"></div>
+      <div class="ai-box hidden" id="compareExplain">
+        <h4>AI explanation in simple words</h4>
+        <p id="compareReason"></p>
+      </div>
+    </section>
+
+    <!-- REVIEW SUMMARY -->
+    <section class="hidden" id="panel-summary" data-tab-panel>
+      <h1 class="page-title">Review Summary <span class="pill pill-ai">AI</span></h1>
+      <form class="card" id="summaryForm" style="margin-bottom:1rem;max-width:480px">
+        <div class="field">
+          <label for="summaryProduct">Choose a product</label>
+          <select id="summaryProduct" required></select>
+        </div>
+        <button class="btn btn-primary" type="submit">Summarize reviews</button>
+      </form>
+      <div id="summaryResult" class="hidden">
+        <div class="ai-box">
+          <h4 id="summaryTitle">AI review summary</h4>
+          <p id="summaryOverallText"></p>
+        </div>
+        <div class="review-cols">
+          <div class="card">
+            <h3 class="like-title">What buyers like</h3>
+            <ul class="bullet-list" id="summaryLikesList"></ul>
+          </div>
+          <div class="card">
+            <h3 class="complaint-title">Common complaints</h3>
+            <ul class="bullet-list" id="summaryComplaintsList"></ul>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/auth.js"></script>
+  <script src="/js/assistant.js"></script>
+</body>
+</html>

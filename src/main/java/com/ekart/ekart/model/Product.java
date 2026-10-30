@@ -18,7 +18,12 @@ public class Product {
 
     private String name;
 
+    @Column(length = 2000)
     private String description;
+
+    /** Short specs text used by AI compare (e.g. battery, camera, RAM). */
+    @Column(length = 1000)
+    private String specs;
 
     private BigDecimal price;
 

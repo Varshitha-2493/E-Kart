@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Register · E-Kart</title>
+  <link rel="stylesheet" href="/css/styles.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="shell topbar-inner">
+      <a class="brand" href="/index.html">E-<span>Kart</span></a>
+      <nav class="nav" data-nav></nav>
+    </div>
+  </header>
+
+  <main class="shell auth-wrap">
+    <form class="panel auth-card stack" id="registerForm">
+      <div>
+        <h1>Join E-Kart</h1>
+        <p class="muted">Create a customer account to shop and use the AI assistant.</p>
+      </div>
+      <div class="field">
+        <label for="name">Name</label>
+        <input id="name" required />
+      </div>
+      <div class="field">
+        <label for="email">Email</label>
+        <input id="email" type="email" required />
+      </div>
+      <div class="field">
+        <label for="password">Password</label>
+        <input id="password" type="password" minlength="6" required />
+      </div>
+      <button class="btn btn-primary" type="submit">Register</button>
+      <p class="muted">Already registered? <a href="/pages/login.html">Login</a></p>
+    </form>
+  </main>
+
+  <script src="/js/api.js"></script>
+  <script src="/js/auth.js"></script>
+  <script src="/js/auth-pages.js"></script>
+</body>
+</html>
